@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Pedagogía en Matemática</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fffafa;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #d48cb4;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    th, td {
+      border: 1px solid #f2c9dc;
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+    th {
+      background-color: #f9d3e5;
+      color: #7a4f69;
+    }
+    td {
+      background-color: #fdeff4;
+    }
+    .checkbox {
+      display: flex;
+      align-items: flex-start;
+    }
+    input[type="checkbox"] {
+      margin-right: 8px;
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+  <h1>Malla Curricular - Pedagogía en Matemática</h1>
+  <p style="text-align:center; color:#aa6f94; font-weight: bold;">Marca tus asignaturas aprobadas. Tu avance se guardará automáticamente en tu navegador.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>1º Año<br>Sem I</th>
+        <th>1º Año<br>Sem II</th>
+        <th>2º Año<br>Sem III</th>
+        <th>2º Año<br>Sem IV</th>
+        <th>3º Año<br>Sem V</th>
+        <th>3º Año<br>Sem VI</th>
+        <th>4º Año<br>Sem VII</th>
+        <th>4º Año<br>Sem VIII</th>
+        <th>5º Año<br>Sem IX-X</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script>
+    const asignaturas = [
+      ["Educación, Sociedad y Desarrollo Humano", "Tecnologías de la Información en el Aula", "Álgebra y Trigonometría", "Geometría I", "Introducción al Razonamiento Matemático"],
+      ["La Profesión Docente", "Alfabetización Académica en Pedagogía", "Cálculo Diferencial e Integral", "Álgebra Lineal", "Software Matemático"],
+      ["Inclusión y Exclusión Social en Educación", "Electivo I", "Electivo II", "Cálculo en Varias Variables", "Matemática Discreta", "Enseñanza y Aprendizaje de los Sistemas Numéricos"],
+      ["Psicología Educativa", "Electivo III", "Complementario I", "Geometría II", "Estructuras Algebraicas", "Resolución de Problemas", "Multimedios e Hipermedios en Ed. Matemática"],
+      ["Teorías y Diseños Curriculares", "Análisis Organizacional y Liderazgo Educativo", "Práctica Inicial: Gestión de los Procesos Curriculares y Evaluativos", "Educación Matemática I", "Estadística", "Enseñanza y Aprendizaje de la Geometría para la Enseñanza Media"],
+      ["Evaluación para el Aprendizaje", "Electivo", "Práctica Intermedia I: Orientación para la Formación Integral", "Inferencia Estadística y Muestreo", "Electivo Matemático I", "Enseñanza y Aprendizaje del Álgebra y las Funciones"],
+      ["Fundamentos y Principios Didácticos de la Especialidad", "Orientación Educacional", "Práctica Intermedia II: Didáctica de la Especialidad", "Educación Matemática II", "Electivo Matemático II", "Enseñanza y Aprendizaje de la Estadística y las Probabilidades"],
+      ["Métodos de la Investigación Educacional", "Diseño e Implementación Didáctica en la Especialidad", "Práctica Avanzada: Diseños Didácticos de la Especialidad", "Resolución de Problemas II", "Seminario Historia de la Matemática", "TICs en la Enseñanza y Aprendizaje de la Matemática"],
+      ["Práctica Profesional en Orientación y Jefatura de Curso", "Práctica Profesional en la Especialidad", "Trabajo de Titulación"]
+    ];
+
+    const tbody = document.querySelector('tbody');
+    const maxFilas = Math.max(...asignaturas.map(col => col.length));
+
+    for (let i = 0; i < maxFilas; i++) {
+      const row = document.createElement('tr');
+      asignaturas.forEach((col, colIndex) => {
+        const cell = document.createElement('td');
+        if (col[i]) {
+          const id = `c-${colIndex}-${i}`;
+          cell.innerHTML = `<label class="checkbox"><input type="checkbox" id="${id}">${col[i]}</label>`;
+        } else {
+          cell.innerHTML = "";
+        }
+        row.appendChild(cell);
+      });
+      tbody.appendChild(row);
+    }
+
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+      const id = checkbox.id;
+      checkbox.checked = localStorage.getItem(id) === 'true';
+      checkbox.addEventListener('change', () => {
+        localStorage.setItem(id, checkbox.checked);
+      });
+    });
+  </script>
+</body>
+</html>
